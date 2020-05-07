@@ -1,0 +1,51 @@
+<div class="main" fxLayout="column">
+  <mat-card class="main-box">
+    <mat-card-title class="title">
+      Welcome <span class="name">{{currentUser.username }}</span>
+    </mat-card-title>
+    <hr>
+    <mat-card-title>
+      Add items to your to-do list!
+    </mat-card-title>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="addTask(f)">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput placeholder="Add a title"
+          ngModel
+          name="title"
+          required
+          #titleInput="ngModel">
+          <mat-error *ngIf="titleInput.hasError('required')">Field must not be empty.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+          <input
+            type="text"
+            matInput placeholder="Add a description"
+            ngModel
+            name="description"
+            #descriptionInput="ngModel">
+          <mat-error >Field must not be empty.</mat-error>
+
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="accent" [disabled]="f.invalid">Submit</button>
+    </form>
+    <hr>
+    <h1 class="todo">To-Do List</h1>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+      <ng-container *ngFor="let task of currentUser.tasks">
+        <tr *ngIf="!task.completed">
+          <td>{{task.title}}</td>
+          <td>{{task.description}}</td>
+          <td><mat-checkbox (click)="updateTask(currentUser._id, task._id, task)">Completed!</mat-checkbox></td>
+        </tr>
+    </ng-container>
+    </table>
+
+  </mat-card>
+</div>

@@ -1,0 +1,81 @@
+
+<section class="signup-form">
+  <mat-card class="signup">
+    <h1>Sign Up for Task Manager</h1>
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #form="ngForm" (ngSubmit)="signUp(form)">
+      <mat-form-field>
+        <input
+          type="text"
+          matInput placeholder="username"
+          ngModel
+          name="username"
+          text
+          required
+          #userNameInput="ngModel">
+          <mat-error *ngIf="userNameInput.hasError('required')">Field must not be empty.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="email"
+          matInput placeholder="your email"
+          ngModel
+          name="email"
+          email
+          required
+          #emailInput="ngModel">
+          <mat-error *ngIf="!emailInput.hasError('required')">E-mail is invalid.</mat-error>
+          <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
+      </mat-form-field>
+      <mat-form-field hintLabel="Should be atleast 6 characters">
+          <input
+            type="password"
+            matInput placeholder="your password"
+            ngModel
+            name="password"
+            required
+            minlength="6"
+            #pwInput2="ngModel">
+          <mat-hint align="end">{{ pwInput2.value?.length }} / 6</mat-hint>
+          <mat-error>Must be atleast 6 characters</mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="accent" [disabled]="form.invalid">Submit</button>
+    </form>
+    </mat-card>
+    <br>
+    <br>
+    <mat-card class="login">
+      <mat-card-title>
+        Or Login
+      </mat-card-title>
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="login(f)">
+        <mat-form-field>
+          <input
+            type="email"
+            matInput placeholder="your email"
+            ngModel
+            name="email"
+            email
+            required
+            #emailInput="ngModel">
+            <mat-error *ngIf="emailInput.hasError('required')">Please enter a valid email</mat-error>
+            <mat-error *ngIf="!emailInput.hasError('required')">E-mail is invalid.</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be atleast 6 characters">
+            <input
+              type="password"
+              matInput placeholder="your password"
+              ngModel
+              name="password"
+              required
+              minlength="6"
+              #pwInput="ngModel">
+            <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
+            <mat-error>Must be atleast 6 characters</mat-error>
+            <mat-error *ngIf="pwInput.hasError('required')">Field must not be empty.</mat-error>
+        </mat-form-field>
+           <p *ngIf="errors.hasOwnProperty('failed')">Email or Password is incorrect.</p>
+        <button type="submit" mat-raised-button color="accent" [disabled]="f.invalid">Submit</button>
+      </form>
+    </mat-card>
+</section>
